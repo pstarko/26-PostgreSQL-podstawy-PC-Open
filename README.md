@@ -1,0 +1,1 @@
+# 26-PostgreSQL-podstawy-PC-Open
