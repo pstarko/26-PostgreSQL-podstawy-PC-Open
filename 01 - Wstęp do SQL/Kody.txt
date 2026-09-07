@@ -1,0 +1,303 @@
+select * from employees
+
+
+select * from departments 
+
+
+select * from jobs
+
+select 
+	last_name,
+	salary,
+	department_id
+	from employees
+	
+select 
+	last_name,
+	salary,
+	department_id
+	from employees
+limit 5
+
+--alias
+select
+	employee_id,
+	--first_name fname,
+	last_name as "this is last_name",
+	salary + 99 after_add
+from employees
+
+
+--WHERE
+select
+	first_name,
+	last_name,
+	salary
+from Employees
+where salary > 15000
+
+
+select
+	first_name,
+	last_name,
+	salary
+from Employees
+where salary = 17000
+
+select
+	first_name,
+	last_name,
+	salary
+from Employees
+where salary <= 15000
+
+
+--LIKE
+select
+	first_name,
+	last_name,
+	salary
+from Employees
+where last_name = 'King'
+
+select
+	first_name,
+	last_name,
+	salary
+from Employees
+where last_name LIKE 'K%'
+
+
+select
+	first_name,
+	last_name,
+	salary
+from Employees
+where last_name LIKE '%o%'
+
+select
+	first_name,
+	last_name,
+	salary
+from Employees
+where last_name LIKE '%ro'
+
+select
+	first_name,
+	last_name,
+	salary	
+from Employees
+where last_name not LIKE 'K%'
+
+
+select
+	first_name,
+	last_name,
+	salary
+from Employees
+where last_name LIKE '_a%'
+
+--BETWEEN
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary,
+	department_id
+from employees
+where 
+	salary between 4800 and 8000
+	
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary,
+	department_id
+from employees
+where 
+	salary >= 4800
+	and salary <= 8000
+	
+	
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary,
+	department_id
+from employees
+where 
+	salary not between 4800 and 8000	
+
+
+
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary,
+	department_id
+from employees
+where 
+	salary >= 17000
+	or last_name like 'T%'
+	and salary = 8600
+
+/*
+ * Hierarchia operaratorów:
+ * 1 - ( )
+ * 2 - AND
+ * 3 - OR
+ */
+	
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary,
+	department_id
+from employees
+where 
+	department_id = 10
+	or department_id = 20
+	
+	
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary,
+	department_id
+from employees
+where 
+	department_id in (10, 20)
+	
+	
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary,
+	job_id
+from employees
+where job_id in ('AD_VP', 'IT_PROG')
+	
+
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary,
+	job_id
+from employees
+where job_id not in ('AD_VP', 'IT_PROG')
+
+
+--NULL
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary,
+	commission_pct,
+	coalesce (commission_pct , 0), 
+	salary + (salary * coalesce (commission_pct , 0)) pelna_pensja
+from employees
+
+	
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary,
+	commission_pct,
+	coalesce (commission_pct , 0), 
+	salary + (salary * coalesce (commission_pct , 0)) pelna_pensja
+from employees
+where
+	commission_pct is null
+	
+
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary,
+	commission_pct,
+	coalesce (commission_pct , 0), 
+	salary + (salary * coalesce (commission_pct , 0)) pelna_pensja
+from employees
+where
+	commission_pct is not null
+	
+select
+	1+coalesce(null, 99)
+	
+	
+--SORTOWANIE (order by)
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary
+from employees
+order by first_name
+
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary
+from employees
+order by first_name desc
+
+
+
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary + 99 podwyzka
+from employees
+where salary + 99 > 10000
+order by podwyzka desc
+
+/*
+ * Kolejność wykonywania klauzul
+ * 1. FROM
+ * 2. WHERE
+ * 3. GROUP BY
+ * 4. HAVING
+ * 5. SELECT
+ * 6. ORDER BY
+ */
+
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary + 99 podwyzka,
+	department_id
+from employees
+where salary + 99 > 10000
+order by department_id, podwyzka desc
+
+
+select
+	employee_id,
+	first_name,
+	last_name,
+	salary + 99 podwyzka,
+	department_id
+from employees
+where salary + 99 > 10000
+order by 2
+
+--usuwanie duplikatów
+select
+	distinct(department_id)
+	from employees e 
+
+
+
