@@ -23,3 +23,29 @@ select
 									, 'k', 'X')
 										, 'm','X') repla
 	from employees
+
+/*
+3. Dodaj podwyżkę 15% dla każdego pracownika. Uwzględnij również
+dodatek(commission_pct). Posortuj malejąco po podniesionej płacy
+
+*/
+select
+	last_name,
+	(salary + (salary * coalesce(commission_pct ,0))) * 1.15 more_money
+	from employees
+order by
+	more_money desc
+
+/*
+4. Policz ile dni jest zatrudniony każdy pracownik. Wyróżnij odpowiednim
+komentarzem tych, którzy pracują ponad 3500 dni (Wynik na dzień 24-04-2025)
+*/
+
+select 
+	last_name,
+	'2025-04-24'::date - hire_date diff,
+	case 
+		when '2025-04-24'::date - hire_date > 3500 then 'Pracuje więcej niż 3500 dni'
+		else '---------'
+	end	result
+	from employees
