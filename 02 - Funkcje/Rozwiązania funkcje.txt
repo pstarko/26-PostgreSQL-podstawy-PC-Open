@@ -61,3 +61,60 @@ matematyki.
 
 select
 	round((power((134%8 * sqrt(81)) / 244, 4) + 0.0097)::numeric, 4)
+
+
+/*
+6. Pokaż last name w taki sposób, by ostatnie trzy litery były w odwróconej kolejności
+
+*/
+--1
+select 
+	last_name,
+	left(last_name, -3),
+	reverse(right(last_name, 3)),
+	left(last_name, -3) || reverse(right(last_name, 3)) code
+	from employees
+
+	
+--2	
+select 
+	last_name ,
+	trim(last_name, right(last_name , 3 )),
+	reverse(right(last_name , 3)),
+	trim(last_name, right(last_name , 3 ))  || reverse(right(last_name , 3)) lastname
+from employees e
+
+
+--3
+select 
+	last_name, 
+	left(last_name,-3),
+	reverse(right(last_name,3)),
+	concat(left(last_name,-3), reverse(right(last_name,3))) as code 
+from employees e
+
+
+--4
+select
+	last_name,
+	substring(last_name, 1, case 
+								when length(last_name) - 3 < 0 then 0 
+								else length(last_name) - 3 end),
+	substring(last_name, 1, case 
+								when length(last_name) - 3 < 0 then 0 
+								else length(last_name) - 3 end) ||
+	reverse(right(last_name, 3))
+	from employees
+	
+--5	
+select
+	last_name,
+	right(last_name, 3),
+	reverse(right(last_name, 3)),
+	replace(last_name, right(last_name, 3), reverse(right(last_name, 3)))
+from employees
+
+
+
+
+	
