@@ -121,3 +121,21 @@ where
 order by 
 	stawka_godzinowa 
 
+
+/*
+12. Czy są pracownicy, którzy w ciągu 5 lat spłacą mieszkanie, które kosztowało 200 000 wiedząc,
+że mogą odłożyć tylko ćwiartkę ze swojej pełnej miesięcznej pensji? Pokaż ich imiona, nazwiska
+pensję miesięczną i ile mogą miesięcznie odkładać (10 wierszy)
+
+
+
+*/
+
+select
+	first_name,
+	last_name,
+	salary + (salary * COALESCE(commission_pct,0)) pensja,
+	(salary + (salary * COALESCE(commission_pct,0))) / 4 odkladaja_co_miesiac
+	from employees
+where
+	(salary + (salary * COALESCE(commission_pct,0))) / 4 * 12 * 5 > 200000
