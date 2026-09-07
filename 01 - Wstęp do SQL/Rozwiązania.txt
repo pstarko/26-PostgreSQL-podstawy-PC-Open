@@ -63,4 +63,42 @@ where
 order by hire_date desc
 	
 	
+/*
+5. wybierz tylko employee_id, last_name i job_id z departamentów 30,40 w kolejności rosnących
+zarobków (7 wierszy)
+
+
+*/
+
+select
+	employee_id, 
+	last_name,
+	job_id 
+	from employees
+where
+	department_id in (30, 40)
+order by salary
+
 	
+/*
+6. Pokaż nazwiska i płace podstawowe(salary) tych, których płace podstawowe nie mieszczą się w
+przedziale 8000 do 15000 (74 wiersze)
+
+*/
+	
+select
+	last_name, 
+	salary
+	from employees	
+where
+	salary not between 8000 and 15000
+	
+select
+	last_name, 
+	salary
+	from employees	
+where
+	salary < 8000 or 
+	salary > 15000	
+	
+
