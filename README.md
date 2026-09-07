@@ -1,5 +1,8 @@
 # 🐘 26-PostgreSQL-podstawy-PC-Open
 Witaj! Tu znajdziesz wszystkie materiały do szkolenia **PostgreSQL-podstawy**.
+---
+# Link zoom: 
+https://us06web.zoom.us/j/89385215062 <br>
 
 ---
 ## 📋 Godziny szkolenia:
