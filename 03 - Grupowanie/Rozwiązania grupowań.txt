@@ -60,3 +60,18 @@ order by
 		when department_id = 110 then 9
 		else department_id
 	end
+
+/*
+5. Dla każdego szefa wyświetl pensję najgorzej zarabiającego podwładnego. Pomiń
+pracowników zarabiających mniej niż 5000 i nie mających szefa (12 wierszy).
+*/
+
+select
+	manager_id,
+	min(salary)
+	from employees e
+where
+	salary > 5000
+	and manager_id is not null
+group by 
+	manager_id
