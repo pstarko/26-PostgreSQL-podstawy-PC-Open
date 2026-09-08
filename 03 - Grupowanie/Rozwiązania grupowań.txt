@@ -75,3 +75,24 @@ where
 	and manager_id is not null
 group by 
 	manager_id
+/*
+6. Sprawdź, ilu mamy pracowników z literą O i R w nazwisku. Napisz zapytanie odporne
+na wielkość liter w tabeli (1 wiersz)
+
+*/
+
+select 
+	count(*)
+	from  employees e 
+where
+	lower(last_name) like '%o%'
+	and lower(last_name) like '%r%'
+
+	
+select
+		count(*) licznik
+	from employees e 
+	where
+		position('o' in lower(last_name)) > 0
+		and position('r' in lower(last_name)) > 0	
+		
