@@ -105,4 +105,31 @@ where
 					where lower(j.job_title ) like '%sales%')
     and e.manager_id  != (select employee_id from employees
     							where first_name = 'John' and last_name = 'Singh')
-    										
+/*
+7. Użyj skorelowanego podzapytania, aby wyświetlić informacje o pracowniku
+niezatrudnionym w żadnym dziale (użyj właściwej formy operatora EXISTS) (1 wiersz)
+
+8. Wyświetl nazwę działu, który płaci Twoim pracownikom najwięcej pieniędzy
+miesięcznie(1 wiersz)
+
+*/
+
+--7
+select
+    e.first_name,
+    e.last_name
+    from employees e 
+    where 
+    		not exists (select 1 from departments dd where dd.department_id = e.department_id)
+	
+--8
+select
+	(select department_name from departments where department_id = e.department_id) dn,
+	sum(salary)
+	from employees e
+group by 
+	e.department_id 
+having
+	sum(salary) = (select max(t1.sum) from 
+						(select sum(salary) sum from employees
+							group by department_id) t1 )									
