@@ -82,4 +82,27 @@ where
 	job_id in (select distinct job_id from employees
 				where department_id not in (select department_id from departments
 												where department_name ='Marketing'))
-												
+			
+
+/*
+6. Wyświetl nazwiska poniższe dane pracowników związanych ze sprzedażą i mających
+innego szefa niż John Singh – wykorzystaj w zapytaniu strukturę „derrived column”
+(29 wierszy)
+*/
+
+
+select
+	e.last_name ,
+	e.email ,
+	e.department_id ,
+	(select first_name || ' ' || last_name from employees e2 where e2.employee_id = e.manager_id ) boss_name	
+	from employees e
+where
+	e.job_id  in (
+					select
+						job_id
+						from jobs j 
+					where lower(j.job_title ) like '%sales%')
+    and e.manager_id  != (select employee_id from employees
+    							where first_name = 'John' and last_name = 'Singh')
+    										
