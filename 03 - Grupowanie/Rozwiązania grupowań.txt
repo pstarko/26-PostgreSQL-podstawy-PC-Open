@@ -8,3 +8,20 @@ select
 	min(salary) mini,
 	max(salary) - min(salary) diff
 	from employees
+
+/*
+2. Wyświetl średnie wynagrodzenie dla wszystkich job_id. Wyklucz zespoły 10,20 i 50.
+Sortuj wyniki według malejącej średniej płacy (13 wierszy).
+
+*/
+
+select
+	job_id,
+	avg(salary) srednia
+	from employees
+where
+	department_id in (10,20,50)
+group by 
+	job_id
+order by 	
+	srednia desc
