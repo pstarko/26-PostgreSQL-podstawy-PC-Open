@@ -146,11 +146,9 @@ where
 group by 	
 	department_id
 having 
-	count(commission_pct) > 10
+	count(employee_id) > 10
 order by
 	department_id desc
-
-
 
 
 
