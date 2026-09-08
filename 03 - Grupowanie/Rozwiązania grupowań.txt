@@ -25,3 +25,16 @@ group by
 	job_id
 order by 	
 	srednia desc
+
+
+/*
+3. Wyświetl liczbę IT_PROG zatrudnionych w firmie (1 wiersz)
+
+
+*/
+
+select
+	count(*)
+	from employees
+where
+	job_id = 'IT_PROG'
