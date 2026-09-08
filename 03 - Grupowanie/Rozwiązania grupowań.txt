@@ -110,3 +110,48 @@ group by
 	department_id
 having
 	sum(Salary) * power(1.1, 10) > 52673
+
+
+/*
+9. Wyświetl numery zespołów wraz z liczbą płac dodatkowych w każdym dziale. Sortuj
+wynik po malejącym id_działu (11 wierszy).
+
+*/
+
+select 
+	department_id ,
+	count(commission_pct)
+	from  employees 
+where
+	department_id is not null
+group by 	
+	department_id
+order by
+	department_id desc
+
+
+		
+		
+/*
+10. Zmodyfikuj zapytanie w zadaniu 9, aby wyświetlić liczby tylko tych działów, które
+zatrudniają więcej niż 10 pracowników (2 wiersze).
+*/
+		
+select 
+	department_id ,
+	count(commission_pct)
+	from  employees 
+where
+	department_id is not null
+group by 	
+	department_id
+having 
+	count(commission_pct) > 10
+order by
+	department_id desc
+
+
+
+
+
+	
