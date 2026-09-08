@@ -1,0 +1,10 @@
+/*
+1. Wyświetl najniższą i najwyższą pensję w firmie. Wyświetl informacje o różnicy między
+najlepiej i najgorzej opłacanymi pracownikami (1 wiersz).
+*/
+
+select
+	max(salary) maxi,
+	min(salary) mini,
+	max(salary) - min(salary) diff
+	from employees
