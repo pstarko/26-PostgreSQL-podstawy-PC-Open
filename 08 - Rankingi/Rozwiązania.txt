@@ -112,3 +112,25 @@ select
 	from employees e join departments d on e.department_id = d.department_id
 group by
 	d.department_name 
+
+/*
+7. Pokaż najlepiej i najgorzej zarabiającego pracownika. Wykorzystaj funkcję rankingową i
+operator UNION ALL (2 wiersze)
+*/
+explain
+select
+	t1.last_name,
+	t1.salary
+	from (
+		select
+			last_name,
+			salary,
+			rank() over (order by salary desc) rnk
+			from employees e 
+		union all
+		select
+			last_name,
+			salary,
+			rank() over (order by salary) rnk
+			from employees e ) t1
+where t1.rnk=1		
