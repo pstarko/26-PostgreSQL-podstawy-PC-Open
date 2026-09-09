@@ -77,4 +77,38 @@ select
 		    from employees e join departments d on e.department_id=d.department_id
 		group by d.department_name ) t1
 
-		
+	
+/*
+5. Pokaż najlepiej zarabiającego pracownika w każdym mieście (7 wierszy
+*/
+
+
+select
+	t1.last_name ,
+	t1.city 
+	from (
+		select 
+			e.last_name,
+			l.city,
+			rank() over (partition by l.city order by e.salary desc) rnk
+		from employees e join departments d on e.department_id=d.department_id
+						 join locations l on d.location_id = l.location_id    ) t1
+where
+	t1.rnk = 1
+     	
+
+/*
+6. Masz podzielić departamenty na cztery "koszyki" w zależności od liczby zatrudnionych
+pracowników. Chcemy mieć cztery koszyki pomiędzy wartościami 0 i 20. Czyli od 0 do 5
+pracowników koszyk 1, od 6 – 10 koszyk 2 etc. Powyżej wartości 20 definiujemy koszyk 5 (11
+wierszy)
+*/
+
+
+select
+	d.department_name ,
+	count(e.employee_id) ilosc,
+	width_bucket(count(e.employee_id), 0, 20, 4) koszyki
+	from employees e join departments d on e.department_id = d.department_id
+group by
+	d.department_name 
