@@ -1,0 +1,79 @@
+explain
+select 
+	department_id,
+	sum(salary) 
+	from employees
+where
+	department_id in (10, 20 ,30)
+group by 
+	department_id 
+union 
+select 
+	null,
+	sum(salary) 
+	from employees
+where
+	department_id in (10, 20 ,30)
+
+explain
+select 
+	department_id,
+	sum(salary) 
+	from employees
+where
+	department_id in (10, 20 ,30)
+group by rollup(department_id) 
+
+
+select 
+	department_id,
+	sum(salary) 
+	from employees
+where
+	department_id in (10, 20 ,30)
+group by cube(department_id) 
+
+
+select 
+	department_id,
+	job_id,
+	sum(salary) 
+	from employees
+where
+	department_id in (10, 20 ,30)
+group by rollup(department_id, job_id) 
+
+
+select 
+	department_id,
+	job_id,
+	sum(salary) 
+	from employees
+where
+	department_id in (10, 20 ,30)
+group by cube(department_id, job_id) 
+
+
+select 
+	department_id,
+	job_id,
+	sum(salary),
+	grouping(department_id) grup_dept_id,
+	grouping(job_id) grup_job_id
+	from employees
+where
+	department_id in (10, 20 ,30)
+	or department_id is null
+group by cube(department_id, job_id) 
+having
+	grouping(job_id) = 0
+
+	
+select 
+	department_id,
+	job_id,
+	sum(salary) 
+	from employees
+where
+	department_id in (10, 20 ,30)
+group by grouping sets ((department_id), (job_id), ())
