@@ -39,7 +39,7 @@ względu na miasto. Wykorzystaj do filtrowania danych WHERE, a nie LIMIT(17 wier
 
 */
 		
---2
+--3
 select 
 	t1.*
 	from (
@@ -54,3 +54,27 @@ where
 	t1.rnk  in (1,2,3)
 				     
 
+/*
+4. Wygeneruj poniższy raport z wykorzystaniem PERCENT RANK (11 wierszy)
+
+*/
+
+select
+	t1.department_id,
+	t1.ilosc_pracownikow,
+	case
+		when t1.ilosc_pracownikow = (select max(t2.ilosc) from (select count(*) ilosc from employees group by department_id) t2)
+		then 'Departament z największą ilością pracowników'
+		when t1.ilosc_pracownikow = (select min(t2.ilosc) from (select count(*) ilosc from employees group by department_id) t2)
+		then 'Departament z najmniejszą ilością pracowników'
+		else t1.opis
+	end opis	
+	from (
+		select 
+			d.department_name department_id,
+			COUNT(*) ilosc_pracownikow,
+			percent_rank() over (order by count(*) desc) * 100 || '% departamentów z większą ilością pracowników' opis
+		    from employees e join departments d on e.department_id=d.department_id
+		group by d.department_name ) t1
+
+		
