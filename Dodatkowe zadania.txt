@@ -1,0 +1,16 @@
+/*
+3. Pokaż na jakich stanowiskach zatrudnieni są pracownicy z zespołu 50 i jaki procent budżetu całej firmy przepalają
+
+*/
+
+select
+	t1.*,
+	round((t1.salary / t1.suma_plac) * 100, 2) || '%' procent 
+	from (
+		select
+			job_id ,
+			sum(salary) salary,
+			(select sum(salary) from employees) suma_plac
+			from employees
+		where department_id = 50
+		group by job_id ) t1
