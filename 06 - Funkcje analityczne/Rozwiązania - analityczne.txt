@@ -60,3 +60,24 @@ select
 where
 	department_id between 10 and 50
 group by grouping sets ((department_id), (job_id), (department_id, job_id))
+
+
+/*
+
+4. Dla departamentu 90,100,110 i każdego etatu (poza AD_ASST,HR_REP,MK_MAN) pokaż
+średnią płacę z podsumowaniami. Podsumowanie pokaż na końcu(16 wierszy)
+*/
+
+
+select 
+	department_id,
+	job_id,
+	avg(salary) srednia,
+	grouping(department_id),
+	grouping(job_id)
+from employees e 
+where 
+	department_id in (90, 100, 110)
+	and job_id not in ('AD_ASST', 'HR_REP', 'MK_MAN')
+group by grouping sets ((department_id), (job_id), (department_id, job_id), ())
+order by grouping(department_id) + 	grouping(job_id)
