@@ -30,3 +30,27 @@ select
 						     join locations l on d.location_id=l.location_id ) t1
 where
 	t1.drnk  not in (4,5,8)
+
+
+/*
+3. Zmodyfikuj zapytanie z poprzedniego punktu w taki sposób, aby otrzymać dane jedynie
+trzech pierwszych pracowników w rankingu pensji (weź pod uwagę ranking zwykły) ze
+względu na miasto. Wykorzystaj do filtrowania danych WHERE, a nie LIMIT(17 wierszy)
+
+*/
+		
+--2
+select 
+	t1.*
+	from (
+		select 
+			e.last_name,
+			e.salary,
+			l.city,
+			rank() over (partition by l.city order by salary desc) rnk
+			from employees e join departments d on e.department_id=d.department_id
+						     join locations l on d.location_id=l.location_id ) t1
+where
+	t1.rnk  in (1,2,3)
+				     
+
