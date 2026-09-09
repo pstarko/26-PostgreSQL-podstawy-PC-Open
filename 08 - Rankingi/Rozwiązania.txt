@@ -134,3 +134,22 @@ select
 			rank() over (order by salary) rnk
 			from employees e ) t1
 where t1.rnk=1		
+
+
+/*
+8. Stwórz raport o ilości zatrudnionych pracowników ze względu na kraj, miasto. Stwórz ranking
+zwykły do tego raportu uwzględniając też kraje i miasta, które nikogo nie zatrudniają (34
+wiersze)
+*/
+select
+	c.country_name ,
+	l.city,
+	count(e.employee_id) ilosc,
+	rank() over (order by count(e.employee_id) desc) rnk
+	from employees e join departments d on e.department_id = d.department_id 
+					 right join locations l on l.location_id = d.location_id 
+					 right join countries c on c.country_id = l.country_id
+group by
+	c.country_name ,
+	l.city
+				
